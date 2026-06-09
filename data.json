@@ -1,0 +1,9 @@
+{
+  "scrolledView": true,
+  "ttsHighlight": true,
+  "lastVoiceIndex": 6,
+  "rate": 1.8,
+  "ttsProvider": "google",
+  "googleTtsLang": "th",
+  "toolbarPosition": "bottom"
+}

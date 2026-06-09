@@ -1,0 +1,13 @@
+{
+  "id": "epub-reader-with-tts",
+  "name": "EPUB Reader with TTS",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "description": "Read EPUB files with cross-platform System TTS.",
+ 	"author": "usero2-endofday",
+	"authorUrl": "https://github.com/usero2",
+	"fundingUrl": {
+		"Buy me a Coffee": "https://buymeacoffee.com/endofday"
+	},
+	"isDesktopOnly": false
+}

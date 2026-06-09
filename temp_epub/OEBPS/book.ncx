@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN"
+   "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="en">
+	<head>
+		<meta name="dtb:uid" content="-" />
+		<meta name="dtb:depth" content="2" />
+		<meta name="dtb:totalPageCount" content="0" />
+		<meta name="dtb:maxPageNumber" content="0" />
+		<meta name="dtb:generator" content="EPub (2.04) by A. Grandt, http://www.phpclasses.org/package/6115" />
+	<meta name="stegano" content="n0PeTXZngqmgZgeEmKLZtOzJKOHnNwDcRnH1h9d2V3WiZibkNSlio91g/FMUVu9PM936tm6VCd2QPi7zpXAuB12+S+DlrvATHCz1reHqJ43JGH18YyKPU/YQ7MqKU3esr6lXCccNfsE7ba9oqYBX1A=="/>
+</head>
+
+	<docTitle>
+		<text>-</text>
+	</docTitle>
+
+	<docAuthor>
+		<text>-</text>
+	</docAuthor>
+
+	<navMap>
+
+		<navPoint id="" playOrder="0">
+			<navLabel><text>Cover</text></navLabel>
+			<content src="CoverPage.html" />
+		</navPoint>
+
+		<navPoint id="chapter1" playOrder="1">
+			<navLabel><text>หน้าแรก </text></navLabel>
+			<content src="Chapter_1.html" />
+		</navPoint>
+
+		<navPoint id="chapter2" playOrder="2">
+			<navLabel><text>ภาพ </text></navLabel>
+			<content src="Chapter_2.html" />
+		</navPoint>
+
+		<navPoint id="chapter3" playOrder="3">
+			<navLabel><text>หน้าคั่น </text></navLabel>
+			<content src="Chapter_3.html" />
+		</navPoint>
+
+		<navPoint id="chapter4" playOrder="4">
+			<navLabel><text>สารบัญ </text></navLabel>
+			<content src="Chapter_4.html" />
+		</navPoint>
+
+		<navPoint id="chapter5" playOrder="5">
+			<navLabel><text>แนะนำตัวละคร </text></navLabel>
+			<content src="Chapter_5.html" />
+		</navPoint>
+
+		<navPoint id="chapter6" playOrder="6">
+			<navLabel><text>บทนำ </text></navLabel>
+			<content src="Chapter_6.html" />
+		</navPoint>
+
+		<navPoint id="chapter7" playOrder="7">
+			<navLabel><text>บทที่ 1 การหาเงินของรุ่นน้องกับเวทมนตร์ต้องห้าม</text></navLabel>
+			<content src="Chapter_7.html" />
+		</navPoint>
+
+		<navPoint id="chapter8" playOrder="8">
+			<navLabel><text>บทที่ 2 สุภาพสตรีหัวปั่น</text></navLabel>
+			<content src="Chapter_8.html" />
+		</navPoint>
+
+		<navPoint id="chapter9" playOrder="9">
+			<navLabel><text>คั่นบท วีจีตา ควอตซ์</text></navLabel>
+			<content src="Chapter_10.html" />
+		</navPoint>
+
+		<navPoint id="chapter10" playOrder="10">
+			<navLabel><text>บทที่ 3 อุปกรณ์เวทชิ้นแรกกับการมาเยือนของอาจารย์</text></navLabel>
+			<content src="Chapter_9.html" />
+		</navPoint>
+
+		<navPoint id="chapter11" playOrder="11">
+			<navLabel><text>บทส่งท้าย จดหมาย</text></navLabel>
+			<content src="Chapter_11.html" />
+		</navPoint>
+
+		<navPoint id="chapter12" playOrder="12">
+			<navLabel><text>คั่นบท กลุ่มปรองดองรอคอยนักเรียนใหม่</text></navLabel>
+			<content src="Chapter_13.html" />
+		</navPoint>
+
+		<navPoint id="chapter13" playOrder="13">
+			<navLabel><text>ตอนพิเศษ เซออนลีย์กับไอออนเมื่อวันวาน 2</text></navLabel>
+			<content src="Chapter_12.html" />
+		</navPoint>
+
+		<navPoint id="chapter14" playOrder="14">
+			<navLabel><text>ปัจฉิมลิขิต </text></navLabel>
+			<content src="Chapter_14.html" />
+		</navPoint>
+	</navMap>
+</ncx>
