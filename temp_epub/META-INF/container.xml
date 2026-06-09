@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- stg:n0PeTXZngqmgZgeEmKLZtOzJKOHnNwDcRnH1h9d2V3WiZibkNSlio91g/FMUVu9PM936tm6VCd2QPi7zpXAuB12+S+DlrvATHCz1reHqJ43JGH18YyKPU/YQ7MqKU3esr6lXCccNfsE7ba9oqYBX1A== -->
-
-<container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
-	<rootfiles>
-		<rootfile full-path="OEBPS/book.opf" media-type="application/oebps-package+xml" />
-	</rootfiles>
-</container>
