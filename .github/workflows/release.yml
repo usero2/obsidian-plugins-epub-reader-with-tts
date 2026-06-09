@@ -1,0 +1,40 @@
+name: Release Obsidian Plugin
+
+on:
+  push:
+    tags:
+      - '*' # Triggers whenever you push a tag (e.g. 1.0.1)
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to create the release
+      id-token: write # Needed for artifact attestations
+      attestations: write # Needed for artifact attestations
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build main.js
+        run: |
+          cat libs_bundle.js plugin.js > main.js
+
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: |
+            main.js
+            manifest.json
+            styles.css
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            main.js
+            manifest.json
+            styles.css
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

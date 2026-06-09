@@ -6,5 +6,18 @@
   "ttsProvider": "google",
   "googleTtsLang": "th",
   "toolbarPosition": "bottom",
-  "readingProgress": {}
+  "readingProgress": {
+    "Lite Novel/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน เล่ม 6 (ฉบับนิยาย).epub": {
+      "scrollMode": "scroll",
+      "sectionIndex": 6,
+      "scrollTop": 14545,
+      "snippet": "พอ​เขา​เห็น​เซ​ลาลาฟี​ราก็​ทำท่า​ตกใจ​จน​ดูออก​แม้​คาด​ผ้า​ปิด​ตา"
+    },
+    "Lite Novel/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน เล่ม 5 (ฉบับนิยาย).epub": {
+      "scrollMode": "scroll",
+      "sectionIndex": 6,
+      "scrollTop": 11200,
+      "snippet": "โรงเรียน​เวทมนตร์​ปิด​ภาคเรียน​ใน​ฤดูร้อน แปล​ว่า​ตอนนี้​ยังเป็น​นักเรียน​ปี​หนึ่ง​อยู่"
+    }
+  }
 }
