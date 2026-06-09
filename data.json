@@ -1,9 +1,36 @@
 {
   "scrolledView": true,
   "ttsHighlight": true,
-  "lastVoiceIndex": 6,
+  "lastVoiceIndex": 5,
   "rate": 1.8,
-  "ttsProvider": "google",
+  "ttsProvider": "system",
   "googleTtsLang": "th",
-  "toolbarPosition": "bottom"
+  "toolbarPosition": "bottom",
+  "readingProgress": {
+    "Lite Novel/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน เล่ม 6 (ฉบับนิยาย).epub": {
+      "scrollMode": "scroll",
+      "sectionIndex": 6,
+      "scrollTop": 13503
+    },
+    "Lite Novel/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน เล่ม 5 (ฉบับนิยาย).epub": {
+      "scrollMode": "scroll",
+      "sectionIndex": 9,
+      "scrollTop": 100053
+    },
+    "Lite Novel/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน เล่ม 4 (ฉบับนิยาย).epub": {
+      "scrollMode": "scroll",
+      "sectionIndex": 13,
+      "scrollTop": 158965
+    },
+    "Lite Novel/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน เล่ม 3 (ฉบับนิยาย).epub": {
+      "scrollMode": "scroll",
+      "sectionIndex": 0,
+      "scrollTop": 0
+    },
+    "Psychology of Human Behavior.epub": {
+      "scrollMode": "scroll",
+      "sectionIndex": 11,
+      "scrollTop": 134156
+    }
+  }
 }
