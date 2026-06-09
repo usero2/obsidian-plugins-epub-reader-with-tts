@@ -255,11 +255,35 @@ class EpubReaderView extends obsidian.FileView {
             }
         }
 
+        let snippet = "";
+        try {
+            const containerRect = this.viewerDiv.getBoundingClientRect();
+            const elements = this.viewerDiv.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li, div');
+            for (let el of elements) {
+                if (!el.textContent || !el.textContent.trim()) continue;
+                if (el.tagName === 'DIV' && el.children.length > 0) continue;
+                const rect = el.getBoundingClientRect();
+                if (rect.bottom > containerRect.top && rect.top < containerRect.bottom) {
+                    const text = el.textContent.trim().replace(/\s+/g, ' ');
+                    if (text.length >= 50) {
+                        snippet = text;
+                        if (snippet.length > 200) snippet = snippet.substring(0, 200) + "...";
+                        break;
+                    }
+                }
+            }
+        } catch (e) { console.error("Error extracting snippet:", e); }
+
         if (!this.settings.readingProgress) this.settings.readingProgress = {};
+        
+        const existing = this.settings.readingProgress[targetFile.path];
+        if (!snippet && existing && existing.snippet) snippet = existing.snippet;
+
         this.settings.readingProgress[targetFile.path] = {
             scrollMode: this.settings.scrolledView ? "scroll" : "page",
             sectionIndex: saveIndex,
-            scrollTop: this.viewerDiv.scrollTop
+            scrollTop: this.viewerDiv.scrollTop,
+            snippet: snippet
         };
         await this.plugin.saveSettings();
     }
@@ -1030,6 +1054,55 @@ class EpubReaderSettingTab extends obsidian.PluginSettingTab {
                     this.plugin.settings.googleTtsLang = v; await this.plugin.saveSettings();
                 });
             });
+
+        containerEl.createEl("h3", { text: "Reading Progress Management" });
+
+        const progressKeys = Object.keys(this.plugin.settings.readingProgress || {});
+        
+        if (progressKeys.length === 0) {
+            containerEl.createEl("p", { text: "No reading progress saved.", cls: "setting-item-description" });
+        } else {
+            new obsidian.Setting(containerEl)
+                .setName("Reset All Progress")
+                .setDesc(`Clear reading progress for all ${progressKeys.length} books.`)
+                .addButton(btn => btn
+                    .setButtonText("Reset All")
+                    .setWarning()
+                    .onClick(async () => {
+                        this.plugin.settings.readingProgress = {};
+                        await this.plugin.saveSettings();
+                        const st = containerEl.scrollTop;
+                        this.display();
+                        setTimeout(() => containerEl.scrollTop = st, 0);
+                    })
+                );
+
+            progressKeys.forEach(bookPath => {
+                const parts = bookPath.split('/');
+                const bookName = parts[parts.length - 1];
+
+                const progressData = this.plugin.settings.readingProgress[bookPath];
+                let descText = bookPath;
+                if (progressData && progressData.snippet) {
+                    descText += `\n\n"${progressData.snippet}"`;
+                }
+
+                const setting = new obsidian.Setting(containerEl)
+                    .setName(bookName)
+                    .setDesc(descText)
+                    .addButton(btn => btn
+                        .setButtonText("Reset")
+                        .onClick(async () => {
+                            delete this.plugin.settings.readingProgress[bookPath];
+                            await this.plugin.saveSettings();
+                            setting.settingEl.remove();
+                        })
+                    );
+                
+                setting.descEl.style.whiteSpace = "pre-wrap";
+                setting.descEl.style.color = "var(--text-muted)";
+            });
+        }
     }
 }
 

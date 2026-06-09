@@ -53,6 +53,15 @@ You can configure the plugin by going to **Obsidian Settings > Community Plugins
 
 ---
 
+## 📝 Release Notes
+
+### Version 1.0.1
+- **Reading Progress Management:** Added a new section in Settings to manage saved reading progress. You can now reset progress per-book or clear all books at once.
+- **Smooth UI Experience:** Resetting progress no longer causes the settings page scrollbar to jump.
+- **Contextual Snippets:** The reading progress now automatically captures and displays a short text snippet from your current position, making it easier to see exactly where you left off.
+
+---
+
 ## ❤️ Support & Donate
 
 If this plugin has improved your Obsidian workflow, saved you time, or you just want to support its continued development, please consider donating! 
