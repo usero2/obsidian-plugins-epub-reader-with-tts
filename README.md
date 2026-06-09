@@ -1,4 +1,4 @@
-# Obsidian EPUB Reader + TTS
+# Obsidian EPUB Reader with TTS
 
 A powerful and fully-featured EPUB reader plugin for Obsidian that brings your books to life with advanced Text-to-Speech (TTS) integration, immersive reading modes, and intelligent sentence tracking.
 
