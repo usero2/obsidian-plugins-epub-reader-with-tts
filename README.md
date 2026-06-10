@@ -15,9 +15,7 @@ A powerful and fully-featured EPUB reader plugin for Obsidian that brings your b
 - **In-Book Search:** Use the search box in the toolbar to quickly find text. The results dropdown intelligently positions itself so it's never cut off.
 
 ### 🗣️ Advanced Text-to-Speech (TTS)
-- **Dual TTS Engines:**
-  - **System TTS:** Uses your operating system's native offline voices.
-  - **Google TTS:** Uses cloud-based, high-quality voices (with robust support for languages like Thai and many others).
+- **Robust TTS Engine:** Uses your operating system's native offline voices for maximum stability and privacy.
 - **Live Text Highlighting:** The text being spoken is dynamically highlighted on the screen and automatically scrolls into view.
 - **Start From Cursor:** Click anywhere on a sentence and hit **Play** — the TTS will instantly start reading from where you clicked!
 - **On-the-fly Speed Control:** Adjust the reading speed (0.5x to 3.0x) instantly without stopping playback.
@@ -25,7 +23,7 @@ A powerful and fully-featured EPUB reader plugin for Obsidian that brings your b
 
 ### ⚙️ Customizable Interface
 - **Toolbar Positioning:** Prefer the controls at the top or bottom of the screen? Go to the plugin settings and move the toolbar to fit your reading style.
-- **Automatic State Saving:** Your preferred TTS Engine, Voice, Speed, and Toolbar position are remembered automatically for your next reading session.
+- **Automatic State Saving:** Your preferred Voice, Speed, and Toolbar position are remembered automatically for your next reading session.
 
 ---
 
@@ -34,8 +32,7 @@ A powerful and fully-featured EPUB reader plugin for Obsidian that brings your b
 1. **Open an EPUB:** Drag and drop an `.epub` file into your Obsidian vault, and click on it to open the reader.
 2. **Start Listening:** Click the **▶ Play** button in the toolbar. The plugin will extract the text, highlight the current sentence, and begin reading. The button will automatically turn into a **⏸ Pause** button while playing.
 3. **Select a Starting Point:** If you want to start reading from the middle of the chapter, use your mouse to select or click on the text you want, then press **▶ Play**.
-4. **Change TTS Provider:** Use the dropdown in the toolbar to switch between **System TTS** and **Google TTS**. 
-   - *Note: Google TTS offers a dedicated language dropdown to select the target language (e.g., Thai (ไทย)).*
+4. **Change Voice:** Use the dropdown in the toolbar to switch between the voices installed on your system.
 5. **Adjust Speed:** Drag the speed slider left or right. The speed updates immediately, even while the audio is playing.
 6. **Skip Sentences:** While the audio is playing or paused, press **◀ Prev** or **Next ▶** to jump to the previous or next paragraph.
 7. **Change Chapters/Pages:** If you press **⏹ Stop** to exit TTS mode, the **◀ Prev** and **Next ▶** buttons will return to their normal behavior: turning the page or jumping to the next chapter.
@@ -54,6 +51,13 @@ You can configure the plugin by going to **Obsidian Settings > Community Plugins
 ---
 
 ## 📝 Release Notes
+
+### Version 1.0.2
+- **Mobile Experience Upgrade:** The toolbar now has a compact layout specially designed for mobile devices, making reading and navigation much more comfortable.
+- **Lightning Fast Performance:** Implemented "Lazy Loading" for continuous scrolling mode. EPUBs now open instantly regardless of how many chapters they have!
+- **Android TTS Fix:** Resolved an issue where the Text-to-Speech engine would not start on Android devices.
+- **Combined Play/Pause Button:** The play and pause buttons are now elegantly combined into a single toggle to save space.
+- **Streamlined Engine:** Removed Google TTS dependency to rely 100% on the highly stable offline System TTS.
 
 ### Version 1.0.1
 - **Reading Progress Management:** Added a new section in Settings to manage saved reading progress. You can now reset progress per-book or clear all books at once.

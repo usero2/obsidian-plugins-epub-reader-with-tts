@@ -1,7 +1,7 @@
 {
   "id": "epub-reader-with-tts",
   "name": "EPUB Reader with TTS",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "minAppVersion": "1.0.0",
   "description": "Read EPUB files with cross-platform System TTS.",
   "author": "usero2-endofday",

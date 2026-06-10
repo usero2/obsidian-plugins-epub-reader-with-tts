@@ -239,8 +239,12 @@ class EpubReaderView extends obsidian.FileView {
     async onOpen() {
         this.contentEl.empty();
         this.contentEl.style.cssText = "display:flex;flex-direction:column;height:100%;width:100%;overflow:hidden;";
+        if (obsidian.Platform.isMobile) {
+            this.contentEl.addClass("epub-is-mobile");
+        }
 
         this.toolbarWrapper = this.contentEl.createEl("div");
+        this.toolbarWrapper.addClass("epub-toolbar-wrapper");
         this.toolbarWrapper.style.cssText = "display:flex;flex-shrink:0;z-index:10;width:100%;align-items:stretch;";
         this.toolbarWrapper.style.order = this.settings.toolbarPosition === "bottom" ? "1" : "0";
         if (this.settings.toolbarPosition === "bottom") {
@@ -257,7 +261,9 @@ class EpubReaderView extends obsidian.FileView {
             return b;
         };
 
-        this.prevChBtn = mkBtn(this.toolbarWrapper, "◀ Prev");
+        const prevText = obsidian.Platform.isMobile ? "<" : "◀ Prev";
+        this.prevChBtn = mkBtn(this.toolbarWrapper, prevText);
+        this.prevChBtn.addClass("epub-toolbar-btn-prev");
         this.prevChBtn.style.cssText = "cursor:pointer;border:none;background:var(--background-secondary-alt);padding:0 15px;font-weight:bold;border-right:1px solid var(--background-modifier-border);border-radius:0;height:auto;display:flex;align-items:center;justify-content:center;";
         this.prevChBtn.onclick = () => {
             if (this.currentTextChunks.length > 0) {
@@ -272,11 +278,18 @@ class EpubReaderView extends obsidian.FileView {
 
         // --- Toolbar Row 1 ---
         const bar1 = this.toolbarContainer.createEl("div");
+        bar1.addClass("epub-toolbar-center");
         bar1.style.cssText = "display:flex;padding:6px 10px;background:var(--background-secondary);align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap;";
 
         this.playPauseBtn  = mkBtn(bar1, "▶ Play");
         this.stopBtn  = mkBtn(bar1, "⏹ Stop");
         this.playPauseBtn.onclick  = () => {
+            if (obsidian.Platform.isMobile && !this.ttsInitialized) {
+                const dummy = new SpeechSynthesisUtterance('');
+                dummy.volume = 0;
+                window.speechSynthesis.speak(dummy);
+                this.ttsInitialized = true;
+            }
             if (this.isPlaying) {
                 let isPaused = false;
                 if (this._isGoogleTTS()) {
@@ -344,6 +357,7 @@ class EpubReaderView extends obsidian.FileView {
         this.searchContainer = bar1.createEl("div");
         this.searchContainer.style.cssText = "display:flex;align-items:center;margin-left:auto;position:relative;";
         this.searchInput = this.searchContainer.createEl("input", { type: "text", attr: { placeholder: "Search..." } });
+        this.searchInput.addClass("epub-search-input");
         this.searchInput.style.cssText = "width:150px;padding:4px 8px;border-radius:4px;border:1px solid var(--background-modifier-border);";
         
         const searchResultsTop = this.settings.toolbarPosition === "bottom" ? "bottom:100%; top:auto;" : "top:100%; bottom:auto;";
@@ -369,6 +383,7 @@ class EpubReaderView extends obsidian.FileView {
 
         // --- Toolbar Row 2 ---
         const bar2 = this.toolbarContainer.createEl("div");
+        bar2.addClass("epub-toolbar-center");
         bar2.style.cssText = "display:flex;padding:4px 10px;background:var(--background-secondary);align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap;border-top:1px dashed var(--background-modifier-border);";
 
         bar2.createEl("span", { text: "Speed" }).style.cssText = "font-size:12px;color:var(--text-muted);";
@@ -409,7 +424,9 @@ class EpubReaderView extends obsidian.FileView {
         this.statusEl = bar2.createEl("span", { text: "" });
         this.statusEl.style.cssText = "margin-left:auto;margin-right:8px;font-size:11px;color:var(--text-muted);white-space:nowrap;";
 
-        this.nextChBtn = mkBtn(this.toolbarWrapper, "Next ▶");
+        const nextText = obsidian.Platform.isMobile ? ">" : "Next ▶";
+        this.nextChBtn = mkBtn(this.toolbarWrapper, nextText);
+        this.nextChBtn.addClass("epub-toolbar-btn-next");
         this.nextChBtn.style.cssText = "cursor:pointer;border:none;background:var(--background-secondary-alt);padding:0 15px;font-weight:bold;border-left:1px solid var(--background-modifier-border);border-radius:0;height:auto;display:flex;align-items:center;justify-content:center;";
         this.nextChBtn.onclick = () => {
             if (this.currentTextChunks.length > 0) {
@@ -547,13 +564,12 @@ class EpubReaderView extends obsidian.FileView {
             await this.book.ready;
 
             this.totalSections = this.book.spine.length;
-            this.currentSectionIndex = 0;
+            this.currentSectionIndex = (this.settings.readingProgress && this.settings.readingProgress[file.path] && this.settings.readingProgress[file.path].sectionIndex) || 0;
 
             if (this.settings.scrolledView) {
-                await this._renderAllSections();
+                await this._renderScrolledSections(this.currentSectionIndex);
             } else {
-                const startIdx = (this.settings.readingProgress && this.settings.readingProgress[file.path] && this.settings.readingProgress[file.path].sectionIndex) || 0;
-                await this._renderSection(startIdx);
+                await this._renderSection(this.currentSectionIndex);
             }
 
             // Restore scroll
@@ -596,25 +612,61 @@ class EpubReaderView extends obsidian.FileView {
         }
     }
 
-    async _renderAllSections() {
+    async _renderScrolledSections(startIndex = 0) {
         this.viewerDiv.empty();
-        this._status("Loading all chapters…");
-
-        for (let i = 0; i < this.totalSections; i++) {
-            const section = this.book.spine.get(i);
-            if (!section) continue;
-            try {
-                await section.load(this.book.load.bind(this.book));
-                const content = section.document ? section.document.body : null;
-                if (content) {
-                    const chapterDiv = this.viewerDiv.createEl("div", { cls: "epub-chapter" });
-                    chapterDiv.style.cssText = "margin-bottom:30px;padding-bottom:30px;border-bottom:1px solid var(--background-modifier-border);";
-                    chapterDiv.setAttribute("data-section", i);
-                    await this._injectContent(chapterDiv, content, section);
-                }
-            } catch (e) { console.warn("Failed to load section " + i, e); }
+        this._status("Loading chapters...");
+        this.scrolledLoadedIndices = [];
+        this.currentSectionIndex = startIndex;
+        
+        // Render up to 3 sections initially
+        for (let i = startIndex; i < Math.min(this.totalSections, startIndex + 3); i++) {
+            await this._appendSection(i);
         }
+        
+        this._setupIntersectionObserver();
         this._status("✓ " + (this.file ? this.file.basename : ""));
+    }
+
+    async _appendSection(index) {
+        if (this.scrolledLoadedIndices.includes(index) || index >= this.totalSections) return;
+        const section = this.book.spine.get(index);
+        if (!section) return;
+        try {
+            await section.load(this.book.load.bind(this.book));
+            const content = section.document ? section.document.body : null;
+            if (content) {
+                const chapterDiv = this.viewerDiv.createEl("div", { cls: "epub-chapter" });
+                chapterDiv.style.cssText = "margin-bottom:30px;padding-bottom:30px;border-bottom:1px solid var(--background-modifier-border);";
+                chapterDiv.setAttribute("data-section", index);
+                await this._injectContent(chapterDiv, content, section);
+                this.scrolledLoadedIndices.push(index);
+                
+                if (this.scrolledObserver) {
+                    this.scrolledObserver.disconnect();
+                    this.scrolledObserver.observe(chapterDiv);
+                }
+            }
+        } catch (e) { console.warn("Failed to load section " + index, e); }
+    }
+
+    _setupIntersectionObserver() {
+        if (this.scrolledObserver) this.scrolledObserver.disconnect();
+        this.scrolledObserver = new IntersectionObserver(async (entries) => {
+            const entry = entries[0];
+            if (entry.isIntersecting) {
+                const lastIndex = Math.max(...this.scrolledLoadedIndices);
+                if (lastIndex < this.totalSections - 1) {
+                    this._status("Loading next chapter...");
+                    await this._appendSection(lastIndex + 1);
+                    this._status("✓ " + (this.file ? this.file.basename : ""));
+                }
+            }
+        }, { root: this.viewerDiv, rootMargin: "0px 0px 1000px 0px" });
+        
+        const lastEl = this.viewerDiv.lastElementChild;
+        if (lastEl) {
+            this.scrolledObserver.observe(lastEl);
+        }
     }
 
     async _renderSection(index) {
@@ -783,6 +835,8 @@ class EpubReaderView extends obsidian.FileView {
                 const chapterDiv = this.viewerDiv.querySelector(`div[data-section="${index}"]`);
                 if (chapterDiv) {
                     chapterDiv.scrollIntoView({ behavior: "smooth" });
+                } else {
+                    this._renderScrolledSections(index);
                 }
             }
         } else {
@@ -936,7 +990,7 @@ class EpubReaderView extends obsidian.FileView {
         return this.settings.ttsProvider === "google";
     }
 
-    async playTTS() {
+    playTTS() {
         // Handle resume
         if (this.isPlaying) {
             if (this._isGoogleTTS()) {
@@ -1210,7 +1264,7 @@ class EpubReaderSettingTab extends obsidian.PluginSettingTab {
     display() {
         const { containerEl } = this;
         containerEl.empty();
-        containerEl.createEl("h2", { text: "EPUB Reader with TTS Settings" });
+        containerEl.createEl("h2", { text: "EPUB Reader + TTS Settings" });
 
         new obsidian.Setting(containerEl)
             .setName("Scrolled View")

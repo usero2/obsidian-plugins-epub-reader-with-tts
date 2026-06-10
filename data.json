@@ -1,7 +1,7 @@
 {
   "scrolledView": true,
   "ttsHighlight": true,
-  "lastVoiceIndex": 5,
+  "lastVoiceIndex": 6,
   "rate": 1.8,
   "ttsProvider": "google",
   "googleTtsLang": "th",
@@ -9,15 +9,27 @@
   "readingProgress": {
     "Lite Novel/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน เล่ม 6 (ฉบับนิยาย).epub": {
       "scrollMode": "scroll",
-      "sectionIndex": 6,
-      "scrollTop": 14545,
-      "snippet": "พอ​เขา​เห็น​เซ​ลาลาฟี​ราก็​ทำท่า​ตกใจ​จน​ดูออก​แม้​คาด​ผ้า​ปิด​ตา"
+      "sectionIndex": 7,
+      "scrollTop": 6977,
+      "snippet": "ใน​เมื่อ​รับ​การ​ไหว้วาน​มาแล้ว ​ขืน ‘​ล้มเหลว’ ​ขึ้น​มาก็​ไม่​คง​กล้า​ไป​สู้หน้า​จีโอ​เอริออน​หรอก"
     },
     "Lite Novel/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน เล่ม 5 (ฉบับนิยาย).epub": {
       "scrollMode": "scroll",
-      "sectionIndex": 6,
+      "sectionIndex": 7,
       "scrollTop": 11200,
-      "snippet": "โรงเรียน​เวทมนตร์​ปิด​ภาคเรียน​ใน​ฤดูร้อน แปล​ว่า​ตอนนี้​ยังเป็น​นักเรียน​ปี​หนึ่ง​อยู่"
+      "snippet": "แม้​จะ​สนใจ​แต่​เรื่อง​เวทมนตร์ แต่ก็​ต้อง​คิด​ด้วยว่า​จะ​นำ​เวทมนตร์​ที่​เรียนรู้​จากที่​นี่​ไป​ทำ​อะไรได้​บ้าง"
+    },
+    "Psychology of Human Behavior.epub": {
+      "scrollMode": "scroll",
+      "sectionIndex": 0,
+      "scrollTop": 1128,
+      "snippet": "The content contained within this book may not be reproduced, duplicated or transmitted without direct written permission from the author or the publisher."
+    },
+    "Lite Novel/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน เล่ม 4 (ฉบับนิยาย).epub": {
+      "scrollMode": "scroll",
+      "sectionIndex": 7,
+      "scrollTop": 22017,
+      "snippet": "“สงบใจไว้ก่อน ไม่ว่าจะมีใครมาดูหรืออยู่ที่ไหน เรื่องที่เจ้าตัวต้องทำก็เหมือนเดิมใช่ไหมล่ะ”"
     }
   }
 }
