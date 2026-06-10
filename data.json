@@ -6,30 +6,43 @@
   "ttsProvider": "google",
   "googleTtsLang": "th",
   "toolbarPosition": "bottom",
+  "toolbarCollapsed": false,
   "readingProgress": {
-    "Lite Novel/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน เล่ม 6 (ฉบับนิยาย).epub": {
+    "Lite Novel/OVERLORD/Overlord เล่ม 4 The lizard man Heroes เหล่าผู้กล้าลิซาร์ดแมน.epub": {
       "scrollMode": "scroll",
-      "sectionIndex": 7,
-      "scrollTop": 6977,
-      "snippet": "ใน​เมื่อ​รับ​การ​ไหว้วาน​มาแล้ว ​ขืน ‘​ล้มเหลว’ ​ขึ้น​มาก็​ไม่​คง​กล้า​ไป​สู้หน้า​จีโอ​เอริออน​หรอก"
+      "sectionIndex": 5,
+      "scrollTop": 10434,
+      "snippet": "“คิดว่าใช่นะ พูดตามตรงคือ เส้นเขตแดนนี้ไม่ค่อยมีประโยชน์หรอกเพราะเขียนมาค่อนข้างหยาบ เอาละ มาดูฝั่งจักรวรรดิกันบ้างดีกว่า ทิศตะวันออกเฉียงเหนือของจักรวรรดิ ตรงนี้มีนครรัฐอยู่มากมาย โดยจัดตั้งเป็นสมาพั..."
     },
-    "Lite Novel/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน เล่ม 5 (ฉบับนิยาย).epub": {
+    "Lite Novel/OVERLORD/Overlord เล่ม 5 The Man in the Kingdom เหล่าบุรุษแห่งราชอาณาจักร (ปฐมบท).epub": {
       "scrollMode": "scroll",
-      "sectionIndex": 7,
-      "scrollTop": 11200,
-      "snippet": "แม้​จะ​สนใจ​แต่​เรื่อง​เวทมนตร์ แต่ก็​ต้อง​คิด​ด้วยว่า​จะ​นำ​เวทมนตร์​ที่​เรียนรู้​จากที่​นี่​ไป​ทำ​อะไรได้​บ้าง"
+      "sectionIndex": 8,
+      "scrollTop": 17899,
+      "snippet": "ผู้ชายพูดพลางแหงนหน้ามองฟ้า อย่าว่าแต่เมฆฝนเลย ท้องฟ้าโปร่งไม่มีเมฆแม้แต่ก้อนเดียว"
     },
-    "Psychology of Human Behavior.epub": {
+    "Lite Novel/OVERLORD/Overlord เล่ม 16 The half elf God-kin มนุษย์เทวะครึ่งเอลฟ์ (ปัจฉิมบท).epub": {
       "scrollMode": "scroll",
-      "sectionIndex": 0,
-      "scrollTop": 1128,
-      "snippet": "The content contained within this book may not be reproduced, duplicated or transmitted without direct written permission from the author or the publisher."
+      "sectionIndex": 10,
+      "scrollTop": 0,
+      "snippet": "แน่นอนว่าไอนซ์กินไม่ได้ คนที่กินจึงมีแค่ออร่ากับมาเร่สองคน แล้วอาหารก็ไม่ได้มีแต่ของที่ดาร์กเอลฟ์เตรียมมาให้เท่านั้น"
     },
-    "Lite Novel/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน/จอมเวทผู้มองเห็นทุกสิ่ง คุนอน เล่ม 4 (ฉบับนิยาย).epub": {
+    "Lite Novel/OVERLORD/Overlord เล่ม 15 The half elf God-kin มนุษย์เทวะคร.epub": {
       "scrollMode": "scroll",
-      "sectionIndex": 7,
-      "scrollTop": 22017,
-      "snippet": "“สงบใจไว้ก่อน ไม่ว่าจะมีใครมาดูหรืออยู่ที่ไหน เรื่องที่เจ้าตัวต้องทำก็เหมือนเดิมใช่ไหมล่ะ”"
+      "sectionIndex": 2,
+      "scrollTop": 2856,
+      "snippet": ""
+    },
+    "Lite Novel/Liar Liar/Liar Liar เล่ม 1 ตอน เด็กใหม่จอมโกหกร่วมกับสาวตัวโกงเอาชนะเกม (ฉบับนิยาย).epub": {
+      "scrollMode": "scroll",
+      "sectionIndex": 9,
+      "scrollTop": 9746,
+      "snippet": "“...​นี่ ตอบ​มานะ เมื่อกี้นี้​บังเอิญ​เหรอ หรือว่า​เธอเตรียมการไว้​แล้ว”"
+    },
+    "Lite Novel/Liar Liar/Liar Liar เล่ม 7 เด็กใหม่จอมโกหกโต้กลับความถูกต้องจอมปลอม (ฉบับนิยาย).epub": {
+      "scrollMode": "scroll",
+      "sectionIndex": 14,
+      "scrollTop": 209577,
+      "snippet": "ฮิเมจิ​เห็น​สีหน้า​แบบนั้น​ของ​ผม​แล้วก็​พูดต่อ​ด้วย​น้ำเสียง​ที่​ผ่อนคลาย​ยิ่งกว่า​ทุกครั้ง"
     }
   }
 }

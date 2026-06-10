@@ -52,6 +52,11 @@ You can configure the plugin by going to **Obsidian Settings > Community Plugins
 
 ## 📝 Release Notes
 
+### Version 1.0.3
+- **Show/Hide Toolbar Feature:** Added a convenient toggle button (☰) at the top-left corner to completely hide the toolbar and maximize vertical reading space.
+- **UI Layout Optimization:** Further reduced toolbar padding and button sizes to make the reading interface even more compact and mobile-friendly.
+- **Enhanced Android TTS Stability:** Resolved an edge-case bug where skipping or turning pages on Android would result in a false TTS "interrupted" error state.
+
 ### Version 1.0.2
 - **Mobile Experience Upgrade:** The toolbar now has a compact layout specially designed for mobile devices, making reading and navigation much more comfortable.
 - **Lightning Fast Performance:** Implemented "Lazy Loading" for continuous scrolling mode. EPUBs now open instantly regardless of how many chapters they have!

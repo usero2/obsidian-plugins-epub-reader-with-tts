@@ -99,27 +99,83 @@
 
 /* Mobile Toolbar Styles */
 .epub-is-mobile .epub-toolbar-wrapper {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .epub-is-mobile .epub-toolbar-btn-prev,
 .epub-is-mobile .epub-toolbar-btn-next {
-    padding: 0 8px !important;
-    font-size: 16px;
+    padding: 0 10px !important;
+    font-size: 18px;
+    min-width: 36px;
+    font-weight: bold;
 }
 
-.epub-is-mobile .epub-toolbar-center {
-    padding: 4px !important;
-    gap: 4px !important;
-}
-
-.epub-is-mobile .epub-toolbar-center button,
-.epub-is-mobile .epub-toolbar-center select,
-.epub-is-mobile .epub-toolbar-center input {
-    font-size: 12px;
+/* Compact row styling for mobile */
+.epub-is-mobile .epub-toolbar-row1 {
     padding: 4px 6px !important;
+    gap: 5px !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+}
+
+.epub-is-mobile .epub-toolbar-row2 {
+    padding: 2px 6px !important;
+    gap: 5px !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+}
+
+/* Smaller buttons/selects on mobile */
+.epub-is-mobile .epub-toolbar-center button {
+    font-size: 12px !important;
+    padding: 3px 7px !important;
+    white-space: nowrap;
+    height: 28px;
+    box-sizing: border-box;
+}
+
+.epub-is-mobile .epub-toolbar-center select {
+    font-size: 12px !important;
+    padding: 2px 4px !important;
+    height: 28px;
+    max-width: 120px !important;
+    box-sizing: border-box;
+}
+
+.epub-is-mobile .epub-toolbar-center input[type="range"] {
+    width: 70px !important;
+    padding: 0 !important;
+    height: 20px;
 }
 
 .epub-is-mobile .epub-search-input {
-    width: 100px !important;
+    width: 80px !important;
+    font-size: 12px !important;
+    padding: 3px 5px !important;
+    height: 28px !important;
+}
+
+/* Toolbar toggle button */
+.epub-toolbar-toggle-btn {
+    position: absolute;
+    z-index: 20;
+    cursor: pointer;
+    border: none !important;
+    background: var(--background-secondary-alt) !important;
+    border-radius: 50% !important;
+    width: 28px !important;
+    height: 28px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 12px !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3) !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.epub-toolbar-toggle-btn:hover {
+    opacity: 1;
 }

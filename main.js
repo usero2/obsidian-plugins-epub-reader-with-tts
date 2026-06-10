@@ -245,6 +245,25 @@ class EpubReaderView extends obsidian.FileView {
 
         this.toolbarWrapper = this.contentEl.createEl("div");
         this.toolbarWrapper.addClass("epub-toolbar-wrapper");
+        
+        // --- Toolbar Toggle Button (Show/Hide) ---
+        this._toolbarCollapsed = this.settings.toolbarCollapsed || false;
+        // Use document.createElement (not contentEl.createEl) to avoid premature DOM insertion
+        this.toolbarToggleBtn = document.createElement("button");
+        this.toolbarToggleBtn.className = "epub-toolbar-toggle-btn";
+        this.toolbarToggleBtn.setAttribute("title", "Toggle Toolbar");
+        this.toolbarToggleBtn.innerText = "☰";
+        this.toolbarToggleBtn.style.cssText = "position:absolute;z-index:20;cursor:pointer;border:none;background:var(--background-secondary-alt);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 1px 4px rgba(0,0,0,0.3);padding:0;line-height:1;";
+        this.toolbarToggleBtn.style.top = "6px";
+        this.toolbarToggleBtn.style.left = "6px";
+        this.contentEl.style.position = "relative";
+        this.toolbarToggleBtn.onclick = async () => {
+            this._toolbarCollapsed = !this._toolbarCollapsed;
+            this.settings.toolbarCollapsed = this._toolbarCollapsed;
+            await this.plugin.saveSettings();
+            this._applyToolbarCollapsed();
+        };
+
         this.toolbarWrapper.style.cssText = "display:flex;flex-shrink:0;z-index:10;width:100%;align-items:stretch;";
         this.toolbarWrapper.style.order = this.settings.toolbarPosition === "bottom" ? "1" : "0";
         if (this.settings.toolbarPosition === "bottom") {
@@ -257,14 +276,14 @@ class EpubReaderView extends obsidian.FileView {
 
         const mkBtn = (parent, text, title) => {
             const b = parent.createEl("button", { text, attr: { title: title || text } });
-            b.style.cssText = "padding:4px 12px;cursor:pointer;border-radius:4px;";
+            b.style.cssText = "padding:2px 8px;cursor:pointer;border-radius:4px;font-size:12px;";
             return b;
         };
 
         const prevText = obsidian.Platform.isMobile ? "<" : "◀ Prev";
         this.prevChBtn = mkBtn(this.toolbarWrapper, prevText);
         this.prevChBtn.addClass("epub-toolbar-btn-prev");
-        this.prevChBtn.style.cssText = "cursor:pointer;border:none;background:var(--background-secondary-alt);padding:0 15px;font-weight:bold;border-right:1px solid var(--background-modifier-border);border-radius:0;height:auto;display:flex;align-items:center;justify-content:center;";
+        this.prevChBtn.style.cssText = "cursor:pointer;border:none;background:var(--background-secondary-alt);padding:0 8px;font-weight:bold;border-right:1px solid var(--background-modifier-border);border-radius:0;height:auto;display:flex;align-items:center;justify-content:center;font-size:12px;";
         this.prevChBtn.onclick = () => {
             if (this.currentTextChunks.length > 0) {
                 this.skipTTS(-1);
@@ -279,17 +298,11 @@ class EpubReaderView extends obsidian.FileView {
         // --- Toolbar Row 1 ---
         const bar1 = this.toolbarContainer.createEl("div");
         bar1.addClass("epub-toolbar-center");
-        bar1.style.cssText = "display:flex;padding:6px 10px;background:var(--background-secondary);align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap;";
+        bar1.style.cssText = "display:flex;padding:2px 5px;background:var(--background-secondary);align-items:center;gap:6px;flex-shrink:0;flex-wrap:wrap;";
 
         this.playPauseBtn  = mkBtn(bar1, "▶ Play");
         this.stopBtn  = mkBtn(bar1, "⏹ Stop");
         this.playPauseBtn.onclick  = () => {
-            if (obsidian.Platform.isMobile && !this.ttsInitialized) {
-                const dummy = new SpeechSynthesisUtterance('');
-                dummy.volume = 0;
-                window.speechSynthesis.speak(dummy);
-                this.ttsInitialized = true;
-            }
             if (this.isPlaying) {
                 let isPaused = false;
                 if (this._isGoogleTTS()) {
@@ -304,7 +317,22 @@ class EpubReaderView extends obsidian.FileView {
                     this.pauseTTS();
                 }
             } else {
-                this.playTTS();
+                // On Android, must "unlock" speech synthesis with a user-gesture speak first
+                if (obsidian.Platform.isMobile && !this._isGoogleTTS() && !this.ttsInitialized) {
+                    this.ttsInitialized = true;
+                    const dummy = new SpeechSynthesisUtterance(' ');
+                    dummy.volume = 0;
+                    dummy.rate = 2;
+                    dummy.onend = () => {
+                        this.loadVoices();
+                        this.playTTS();
+                    };
+                    dummy.onerror = () => { this.playTTS(); };
+                    window.speechSynthesis.cancel();
+                    window.speechSynthesis.speak(dummy);
+                } else {
+                    this.playTTS();
+                }
             }
         };
         this.stopBtn.onclick  = () => this.stopTTS();
@@ -384,7 +412,7 @@ class EpubReaderView extends obsidian.FileView {
         // --- Toolbar Row 2 ---
         const bar2 = this.toolbarContainer.createEl("div");
         bar2.addClass("epub-toolbar-center");
-        bar2.style.cssText = "display:flex;padding:4px 10px;background:var(--background-secondary);align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap;border-top:1px dashed var(--background-modifier-border);";
+        bar2.style.cssText = "display:flex;padding:2px 5px;background:var(--background-secondary);align-items:center;gap:6px;flex-shrink:0;flex-wrap:wrap;border-top:1px dashed var(--background-modifier-border);";
 
         bar2.createEl("span", { text: "Speed" }).style.cssText = "font-size:12px;color:var(--text-muted);";
         this.rateInput = bar2.createEl("input", { type: "range", attr: { min: "0.5", max: "3", step: "0.1", value: String(this.rate) } });
@@ -427,7 +455,7 @@ class EpubReaderView extends obsidian.FileView {
         const nextText = obsidian.Platform.isMobile ? ">" : "Next ▶";
         this.nextChBtn = mkBtn(this.toolbarWrapper, nextText);
         this.nextChBtn.addClass("epub-toolbar-btn-next");
-        this.nextChBtn.style.cssText = "cursor:pointer;border:none;background:var(--background-secondary-alt);padding:0 15px;font-weight:bold;border-left:1px solid var(--background-modifier-border);border-radius:0;height:auto;display:flex;align-items:center;justify-content:center;";
+        this.nextChBtn.style.cssText = "cursor:pointer;border:none;background:var(--background-secondary-alt);padding:0 8px;font-weight:bold;border-left:1px solid var(--background-modifier-border);border-radius:0;height:auto;display:flex;align-items:center;justify-content:center;font-size:12px;";
         this.nextChBtn.onclick = () => {
             if (this.currentTextChunks.length > 0) {
                 this.skipTTS(1);
@@ -435,6 +463,11 @@ class EpubReaderView extends obsidian.FileView {
                 this.turnPage(1);
             }
         };
+
+        // Append toggle button to contentEl (floating over toolbar)
+        this.contentEl.appendChild(this.toolbarToggleBtn);
+        // Apply initial collapsed state
+        this._applyToolbarCollapsed();
 
         // --- Main Area Flex ---
         this.mainFlex = this.contentEl.createEl("div");
@@ -515,6 +548,41 @@ class EpubReaderView extends obsidian.FileView {
         const isGoogle = (this.settings.ttsProvider === "google");
         this.voiceSelect.style.display = isGoogle ? "none" : "";
         this.googleLangSelect.style.display = isGoogle ? "" : "none";
+    }
+
+    // ---- Toolbar Collapse/Expand ----
+    _applyToolbarCollapsed() {
+        const isBottom = this.settings.toolbarPosition === "bottom";
+        if (this._toolbarCollapsed) {
+            if (this.toolbarContainer) this.toolbarContainer.style.display = "none";
+            this.toolbarWrapper.style.maxHeight = "0px";
+            this.toolbarWrapper.style.overflow = "hidden";
+            this.toolbarWrapper.style.borderBottom = "none";
+            this.toolbarWrapper.style.borderTop = "none";
+            this.toolbarWrapper.style.boxShadow = "none";
+            if (this.toolbarToggleBtn) {
+                this.toolbarToggleBtn.title = "Show Toolbar";
+            }
+        } else {
+            if (this.toolbarContainer) {
+                this.toolbarContainer.style.display = "flex";
+                this.toolbarContainer.style.flexDirection = "column";
+            }
+            this.toolbarWrapper.style.maxHeight = "none";
+            this.toolbarWrapper.style.overflow = "visible";
+            if (isBottom) {
+                this.toolbarWrapper.style.borderTop = "1px solid var(--background-modifier-border)";
+                this.toolbarWrapper.style.borderBottom = "";
+                this.toolbarWrapper.style.boxShadow = "0 -2px 5px rgba(0,0,0,0.05)";
+            } else {
+                this.toolbarWrapper.style.borderBottom = "1px solid var(--background-modifier-border)";
+                this.toolbarWrapper.style.borderTop = "";
+                this.toolbarWrapper.style.boxShadow = "0 2px 5px rgba(0,0,0,0.05)";
+            }
+            if (this.toolbarToggleBtn) {
+                this.toolbarToggleBtn.title = "Hide Toolbar";
+            }
+        }
     }
 
     async onClose() {
@@ -1095,13 +1163,32 @@ class EpubReaderView extends obsidian.FileView {
             );
         } else {
             // System TTS
+            // Cancel any stuck utterance first (especially important on Android)
+            if (obsidian.Platform.isMobile) {
+                this.ttsEngine.cancel();
+            }
             this.utterance = new SpeechSynthesisUtterance(chunk.text);
-            if (this.voices.length > 0) this.utterance.voice = this.voices[this.selectedVoiceIndex];
+            if (this.voices.length > 0 && this.selectedVoiceIndex < this.voices.length) {
+                this.utterance.voice = this.voices[this.selectedVoiceIndex];
+            }
             this.utterance.rate  = this.rate;
             this.utterance.pitch = this.pitch;
             this.utterance.onend = onEnd;
-            this.utterance.onerror = onErr;
-            this.ttsEngine.speak(this.utterance);
+            this.utterance.onerror = (e) => {
+                // On Android, 'interrupted' error just means we cancelled — not a real error
+                if (e.error === 'interrupted' || e.error === 'canceled') {
+                    return;
+                }
+                onErr(e);
+            };
+            // Small delay on mobile to let cancel() settle
+            if (obsidian.Platform.isMobile) {
+                setTimeout(() => {
+                    if (this.isPlaying) this.ttsEngine.speak(this.utterance);
+                }, 100);
+            } else {
+                this.ttsEngine.speak(this.utterance);
+            }
         }
     }
 

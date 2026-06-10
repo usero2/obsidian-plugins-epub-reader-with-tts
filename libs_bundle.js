@@ -70,6 +70,7 @@ const DEFAULT_SETTINGS = {
     ttsProvider: "system",  // "system" | "google"
     googleTtsLang: "th",    // default language for Google TTS
     toolbarPosition: "top", // "top" | "bottom"
+    toolbarCollapsed: false, // hide toolbar to maximize reading area
 };
 
 // Google TTS supported languages (subset)
